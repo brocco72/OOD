@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %} ">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'vendor/noui/nouislider.min.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'main/util.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'main/js-jalali-date/kamadatepicker.css' %}">-->
+
+
+    {% if title %}
+    <title> {{ title }}</title>
+    {% else %}
+    <title> IranBnB </title>
+    {% endif %}
+
+</head>
+
+
+<body>
+
+
+
+<div id="wrapper">
+    <ul class="navbar-nav bg-dark mynav">
+
+        <li class="nav-item sale">
+            <a class="nav-link" href="{% url 'home' %}">خانه</a>
+        </li>
+        <li class="nav-item sale">
+            <a class="nav-link" href="inventory-reports.html">
+                فاکتور خرید </a>
+        </li>
+        <li class="nav-item sale">
+            <a class="nav-link" href="{% url 'new-sale' %}">
+                فاکتور فروش </a>
+        </li>
+        <li class="nav-item sale">
+            <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                تسویه حساب
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'clear-sell'%}"> <i class="fa fa-tag"></i> تسویه فاکتور فروش</a>
+                <a class="dropdown-item" href="{% url 'clear-buy'%}"> <i class="fa fa-tag"></i> تسویه فاکتور خرید</a>
+            </div>
+        </li>
+        <li class="nav-item dropleft sale">
+            <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                مشتری
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'new-customer'%}"> <i class="fa fa-tag"></i> ایجاد مشتری جدید</a>
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> ویرایش اطلاعات مشتری</a>
+            </div>
+        </li>
+        <li class="nav-item dropleft sale">
+            <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                تامین کننده
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'new-provider'%}"> <i class="fa fa-tag"></i> ایجاد تامین کننده جدید</a>
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> ویرایش اطلاعات تامین کننده</a>
+            </div>
+        </li>
+        <li class="nav-item sale">
+            <a class="nav-link" href="{%url 'new-product'%}">
+                تعریف کالا
+            </a>
+        </li>
+        <li class="nav-item dropleft sale">
+            <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  گزارش ها
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> موجودی کالا</a>
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> مانده طرف حساب ها</a>
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> آمار مشتریان</a>
+                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> سود و زیان</a>
+            </div>
+        </li>
+        <li class="nav-item dropleft sale">
+            <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                تخفیف
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'product-off'%}"> <i class="fa fa-tag"></i> کالا</a>
+                <a class="dropdown-item" href="{% url 'customer-off'%}"> <i class="fa fa-tag"></i> مشتری</a>
+            </div>
+        </li>
+    </ul>
+
+
+{% block content %}{% endblock%}
+
+</div>
+
+<div id="footer">
+    <div class="container align-content-center">
+        <div class="row justify-content-center">
+            <div class="justify-content-center">
+                <p>تمامی حقوق این نرم افزار برای فروشگاه علیمجوسینامد محفوظ می باشد.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+</body>
+</html>

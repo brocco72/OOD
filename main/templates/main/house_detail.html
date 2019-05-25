@@ -1,0 +1,66 @@
+{% extends 'main/base.html'%}
+
+
+{% block content %}
+{% load static %}
+<div class="container padded">
+    <div class="card-detail">
+        <div class="row">
+            <aside class="col-md-5">
+                <article class="gallery-wrap">
+                    <div class="img-big-wrap">
+                        <div> <a href="#"><img src="{% static 'main/images/varzane.jpg'%}"></a></div>
+                    </div> <!-- slider-product.// -->
+                    <!--<div class="img-small-wrap">-->
+                    <!--<div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>-->
+                    <!--<div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>-->
+                    <!--<div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>-->
+                    <!--<div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>-->
+                    <!--</div> &lt;!&ndash; slider-nav.// &ndash;&gt;-->
+                </article> <!-- gallery-wrap .end// -->
+            </aside>
+            <aside class="col-md-1"></aside>
+            <aside class="col-md-6">
+                <article class="card-body">
+                    <h3 class="title mb-3">{{house.title}}</h3>
+                    <p class="price-detail-wrap">
+	                    <span class="price h3 text-warning">
+		                    <span class="currency"></span><span class="num">{{house.price}}</span>
+	                    </span>
+                        <span>تومان هر شب</span>
+                    </p> <!-- price-detail-wrap .// -->
+                    <dl class="param param-feature">
+                        <dt>شهر</dt>
+                        <dd><p>{{house.city}}  </p></dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>آدرس</dt>
+                        <dd><p>{{house.address}}  </p></dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>متراژ</dt>
+                        <dd>{{house.space}}</dd>
+                    </dl>  <!-- item-property-hor .// -->
+                    <dl class="param param-feature">
+                        <dt>تعداد اتاق</dt>
+                        <dd>{{house.room}}</dd>
+                    </dl>  <!-- item-property-hor .// -->
+                    <dl class="param param-feature">
+                        <dt>توضیحات</dt>
+                        <dd>{{house.comment}}</dd>
+                    </dl>  <!-- item-property-hor .// -->
+                    <hr>
+
+                    {%if user.is_authenticated%}
+                        <a href="{%url 'home-rent' house.id%}" class="btn btn-lg btn-primary text-uppercase"> اجاره </a>
+                    {% endif %}
+
+                </article> <!-- card-body.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+</div>
+<!--container.//-->
+
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{%block content%}
+{% load static %}
+{% load request_tag %}
+
+<h2>&nbsp;&nbsp; کاربران فعال در ده دقیقه گذشته </h2>
+{% active_users in 10 minutes as user_list %}
+{% for user in user_list %}
+&nbsp;&nbsp;{{ user.username }} <head5>,</head5>
+{% endfor %}
+
+<h2>&nbsp;&nbsp; کل بازدید ها : {{tv}} </h2>
+<h2> &nbsp;&nbsp;بازدید های صفحه اصلی : {{fv}} </h2>
+<h2>&nbsp;&nbsp; خطا ها : {{eh}} </h2>
+<h2> &nbsp;&nbsp;رجوع ادمین : {{av}}</h2>
+
+
+{% endblock content %}
+

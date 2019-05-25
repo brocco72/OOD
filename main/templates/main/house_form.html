@@ -1,0 +1,178 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container vertical-center">
+	<div class="row">
+		<div class="card-wrapper">
+			<div class="card-login fat">
+				<div class="card-body">
+					<h4 class="card-title">ثبت نام</h4>
+					<form method="POST">
+						{% csrf_token %}
+						{{ form|crispy }}
+						<div class="form-group no-margin">
+							<button type="submit" class="btn btn-primary btn-block">
+								ثبت خانه
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!--{% load static %}-->
+<!--<div class="container-contact100">-->
+	<!--<div class="wrap-contact100">-->
+		<!--<form class="contact100-form validate-form">-->
+				<!--<span class="contact100-form-title">-->
+					<!--مشخصات خانه-->
+				<!--</span>-->
+
+			<!--<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">-->
+				<!--<span class="label-input100"> آدرس *</span>-->
+				<!--{{form.address}}-->
+				<!--&lt;!&ndash;<input class="input100" type="text" name="name" placeholder=" آدرس خانه را وارد کنید">&ndash;&gt;-->
+			<!--</div>-->
+
+			<!--<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Enter Your Email (e@a.x)">-->
+				<!--<span class="label-input100"> متراژ *</span>-->
+
+				<!--&lt;!&ndash;<input class="input100" type="text" name="email" placeholder=" متراژ را وارد کنید ">&ndash;&gt;-->
+			<!--</div>-->
+
+			<!--<div class="wrap-input100 bg1 rs1-wrap-input100">-->
+				<!--<span class="label-input100"> تعداد اتاقها </span>-->
+				<!--{{form.room_count}}-->
+				<!--&lt;!&ndash;<select name="" id="" class="form-control input100">&ndash;&gt;-->
+					<!--&lt;!&ndash;<option value="1">۱</option>&ndash;&gt;-->
+					<!--&lt;!&ndash;<option value="2">۲</option>&ndash;&gt;-->
+					<!--&lt;!&ndash;<option value="3">۳</option>&ndash;&gt;-->
+					<!--&lt;!&ndash;<option value="4">۴</option>&ndash;&gt;-->
+					<!--&lt;!&ndash;<option value="5">+۵</option>&ndash;&gt;-->
+				<!--&lt;!&ndash;</select>&ndash;&gt;-->
+			<!--</div>-->
+
+
+			<!--<div class="wrap-input100 input100-select bg1">-->
+				<!--<div class="form-group">-->
+					<!--<label> عکس </label>-->
+					<!--<div class="input-group">-->
+						<!--<input type="text" class="form-control" readonly>-->
+						<!--<span class="input-group-btn">-->
+                			<!--<span class="btn btn-primary btn-file">-->
+                    			<!--Browse <input type="file" id="imgInp">-->
+                			<!--</span>-->
+            			<!--</span>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="img-padding">-->
+						<!--<img id='img-upload'>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<!--<div class="w-full dis-none js-show-service">-->
+				<!--<div class="wrap-contact100-form-radio">-->
+					<!--<span class="label-input100">What type of products do you sell?</span>-->
+
+					<!--<div class="contact100-form-radio m-t-15">-->
+						<!--<input class="input-radio100" id="radio1" type="radio" name="type-product" value="physical" checked="checked">-->
+						<!--<label class="label-radio100" for="radio1">-->
+							<!--Phycical Products-->
+						<!--</label>-->
+					<!--</div>-->
+
+					<!--<div class="contact100-form-radio">-->
+						<!--<input class="input-radio100" id="radio2" type="radio" name="type-product" value="digital">-->
+						<!--<label class="label-radio100" for="radio2">-->
+							<!--Digital Products-->
+						<!--</label>-->
+					<!--</div>-->
+
+					<!--<div class="contact100-form-radio">-->
+						<!--<input class="input-radio100" id="radio3" type="radio" name="type-product" value="service">-->
+						<!--<label class="label-radio100" for="radio3">-->
+							<!--Services Consulting-->
+						<!--</label>-->
+					<!--</div>-->
+				<!--</div>-->
+
+				<!--<div class="wrap-contact100-form-range">-->
+					<!--<span class="label-input100">Budget *</span>-->
+
+					<!--<div class="contact100-form-range-value">-->
+						<!--$<span id="value-lower">610</span> - $<span id="value-upper">980</span>-->
+						<!--<input type="text" name="from-value">-->
+						<!--<input type="text" name="to-value">-->
+					<!--</div>-->
+
+					<!--<div class="contact100-form-range-bar">-->
+						<!--<div id="filter-bar"></div>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<!--<div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">-->
+				<!--<span class="label-input100"> توضیحات </span>-->
+				<!--<textarea class="input100" name="message" placeholder=" توضیحات بیشتر درباره خانه شما ..."></textarea>-->
+			<!--</div>-->
+
+			<!--<div class="container-contact100-form-btn">-->
+				<!--<button class="contact100-form-btn">-->
+						<!--<span>-->
+							<!--ثبت-->
+							<!--<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>-->
+						<!--</span>-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</form>-->
+	<!--</div>-->
+<!--</div>-->
+
+
+<!--<script>-->
+	<!--$(document).ready( function() {-->
+    	<!--$(document).on('change', '.btn-file :file', function() {-->
+		<!--var input = $(this),-->
+			<!--label = input.val().replace(/\\/g, '/').replace(/.*\//, '');-->
+		<!--input.trigger('fileselect', [label]);-->
+		<!--});-->
+
+		<!--$('.btn-file :file').on('fileselect', function(event, label) {-->
+
+		    <!--var input = $(this).parents('.input-group').find(':text'),-->
+		        <!--log = label;-->
+
+		    <!--if( input.length ) {-->
+		        <!--input.val(log);-->
+		    <!--} else {-->
+		        <!--if( log ) alert(log);-->
+		    <!--}-->
+
+		<!--});-->
+		<!--function readURL(input) {-->
+		    <!--if (input.files && input.files[0]) {-->
+		        <!--var reader = new FileReader();-->
+
+		        <!--reader.onload = function (e) {-->
+		            <!--$('#img-upload').attr('src', e.target.result);-->
+		        <!--}-->
+
+		        <!--reader.readAsDataURL(input.files[0]);-->
+		    <!--}-->
+		<!--}-->
+
+		<!--$("#imgInp").change(function(){-->
+		    <!--readURL(this);-->
+		<!--});-->
+	<!--});-->
+<!--</script>-->
+
+
+
+{% endblock content%}

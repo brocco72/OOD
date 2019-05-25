@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+
+{%block content%}
+{% load static %}
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3 my-4">
+
+            <h1 class="my-4"> پروفایل کاربری </h1>
+            <div class="list-group">
+                 <a href="{% url 'home-register'%}" class="list-group-item">   ثبت خانه </a>
+                  <a href="{% url 'home-register'%}" class="list-group-item">   اجاره دادن </a>
+                <a href="{% url 'user-home-rented'%}" class="list-group-item">   خانه های اجاره داده شده</a>
+                <a href="{% url 'user-home-renting'%}" class="list-group-item">  خانه های اجاره گرفته</a>
+                <a href="{% url 'user-home-active'%}" class="list-group-item"> قرارداده شده برای اجاره</a>
+                <a href="#" class="list-group-item">  تغییر مشخصات کاربری</a>
+            </div>
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        {%block content1%}{% endblock %}
+
+    </div>
+    <!-- /.row -->
+
+</div>
+
+
+
+
+
+{% endblock content %}

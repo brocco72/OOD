@@ -1,0 +1,210 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container-fluid vertical-center">
+    <div class="card-sale" style="width: 80%" >
+        <div class="card-body">
+            <h4 class="card-title"> فاکتور خرید</h4>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="container">
+                    <div style="display: table; width: 100%; margin-bottom: 20px; margin-top: 20px">
+                        <div style="display: table-row">
+                            <div class="wrap-input100 validate-input bg1 float-md-right" style="width:30%; display: table-cell">
+                                <span lang="en" class="label-input100"> تامین کننده</span>
+                                {{form.customer}}
+                            </div>
+                            <div class="wrap-input100 validate-input bg1 float-md-left" style="width:30%; display: table-cell">
+                                <span lang="en" class="label-input100 "> تاریخ</span>
+                                {{form.date}}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form></div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                        <tr>
+                            <th class="text-center"> # </th>
+                            <th class="text-center"> کالا </th>
+                            <th class="text-center"> تعداد </th>
+                            <th class="text-center"> قیمت </th>
+                            <th class="text-center"> تخفیف </th>
+                            <th class="text-center"> مجموع </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id='addr0'>
+                            <td>1</td>
+                            <td><input type="number" name='product[]'  placeholder='شناسه کالا را وارد کنید' class="form-control product"/></td>
+                            <td><input type="number" name='qty[]' placeholder='تعداد کالا' class="form-control qty" step="0" min="0"/></td>
+                            <td><input type="number" name='price[]' placeholder='0.00' class="form-control price"   readonly step="0.00" min="0"/></td>
+                            <td><input type="number" name='off[]' placeholder='0.00' class="form-control off"   readonly step="0.00" min="0"/></td>
+                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+                        </tr>
+                        <tr id='addr1'></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <button id="add_row" class="btn btn-dark pull-left">اضافه </button>
+                    <button id='delete_row' class="pull-right btn btn-dark"> حذف</button>
+                </div>
+            </div>
+            <div class="row clearfix">
+            </div>
+            <div class="row clearfix" style="margin-top:20px">
+                <div class="pull-left left col-md-6">
+                </div>
+                <div class="pull-left left col-md-6">
+                    <table class="table table-bordered table-hover" id="tab_logic_total">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">جمع کل</th>
+                            <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">تخفیف</th>
+                            <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                                <input type="number" class="form-control" id="tax" placeholder="0">
+                                <div class="input-group-addon">%</div>
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">مقدار تخفیف</th>
+                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">قابل پرداخت</th>
+                            <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row clearfix" style="margin-top:20px">
+                <div class="pull-left left col-md-4">
+                </div>
+                <div class="pull-left left col-md-4">
+                    <div class="form-group no-margin">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            ثبت فاکتور
+                        </button>
+                    </div>
+                </div>
+                <div class="pull-left left col-md-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>$(document).ready(function(){
+    var i=1;
+    $("#add_row").click(function(){b=i-1;
+        $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+        $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+        i++;
+    });
+    $("#delete_row").click(function(){
+        if(i>1){
+            $("#addr"+(i-1)).html('');
+            i--;
+        }
+        calc();
+    });
+
+    $('#tab_logic tbody').on('change',function(){
+        calc();
+    });
+    $('#tax').on('keyup change',function(){
+        calc_total();
+    });
+
+
+});
+
+function calc()
+{
+    $('#tab_logic tbody tr').each(function(i, element) {
+
+        var html = $(this).html();
+        if(html!='')
+        {
+            var qty = $(this).find('.qty').val();
+            var price = $(this).find('.price').val();
+            var productID = $(this).find('.product').val();
+            var pro_price;
+            var off;
+            $.ajax({
+                    type: "ajax",
+                    method: "POST",
+                    url: "http://localhost:8000/product/price",
+                    data: { productID : productID},
+                    async: false,
+                    headers: { "X-CSRFToken": '{{csrf_token}}' },
+                    success: function (json) {
+                        $('.ajaxProgress').hide();
+                        pro_price = parseInt(json.message['price']);
+                        off = parseInt(json.message['off']);
+                    }
+                }
+            );
+            $(this).find('.price').val(pro_price);
+            $(this).find('.off').val(off);
+            $(this).find('.total').val((qty*price*(100-off)/100).toFixed(2));
+            calc_total();
+        }
+    });
+}
+
+function assign(data) {
+
+}
+
+function calc_total()
+{
+    total=0;
+    $('.total').each(function() {
+        total += parseInt($(this).val());
+    });
+    $('#sub_total').val(total.toFixed(2));
+    tax_sum=total/100*$('#tax').val();
+    $('#tax_amount').val(tax_sum.toFixed(2));
+    $('#total_amount').val((total-tax_sum).toFixed(2));
+}
+</script>
+
+<!--<div id="content-wrapper">-->
+<!--    <div class="row">-->
+<!--        <div class="container-fluid vertical-center">-->
+<!--            <div class="card-login " >-->
+<!--                <div class="card-body ">-->
+<!--                    <h4 class="card-title">فاکتور فروش</h4>-->
+<!--                    <form class="form-required asteriskField" method="POST">-->
+<!--                        {% csrf_token %}-->
+<!--                        {{ form | crispy}}-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+{% endblock content %}

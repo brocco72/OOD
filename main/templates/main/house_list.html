@@ -1,0 +1,69 @@
+{% extends "main/base.html" %}
+
+{%block content%}
+{% load static %}
+
+
+<div class="container">
+
+      <div class="row">
+
+        <div class="col-md-3 my-4">
+
+          <h1> نتایج جست و جو</h1>
+          <div class="list-group">
+            <a href="#" class="list-group-item"> ارزان ها</a>
+            <a href="#" class="list-group-item">نزدیک ها</a>
+            <a href="#" class="list-group-item">بهترین ها</a>
+          </div>
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-md-9 my-4">
+
+          <form action="#" class="form-inline">
+            <input type="text" class="form-control input-md " placeholder="شهر">
+            <input type="text" class="form-control input-md" id="test-date-id" placeholder="ورود">
+            <input type="text" class="form-control input-md" id="test-date-id-2" placeholder="تخلیه">
+            <select name="" id="" class="form-control input-md">
+                <option value="1">۱</option>
+                <option value="2">۲</option>
+                <option value="3">۳</option>
+                <option value="4">۴</option>
+                <option value="5">+۵</option>
+            </select>
+            <input type="submit" class="btn btn-primary" value="بگرد">
+          </form>
+
+
+          <div class="row my-3">
+            {% for house in houses %}
+              <div class="col-lg-4 col-md-4 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="{% static 'main/images/varzane.jpg'%}" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="{% url 'home-detail' house.id%}"> {{house.title}} </a>
+                    </h4>
+                    <h5> قیمت : {{house.price}}</h5>
+                    <h5> تعداد اتاق : {{house.room}}</h5>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.col-lg-9 -->
+      </div>
+      <!-- /.row -->
+    </div>
+
+
+<script>
+    kamaDatepicker('test-date-id', { buttonsColor: "red", forceFarsiDigits: true });
+    kamaDatepicker('test-date-id-2', { buttonsColor: "red", forceFarsiDigits: true });
+</script>
+
+{% endblock content %}

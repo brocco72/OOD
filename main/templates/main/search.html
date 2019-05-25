@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container vertical-center">
+    <div class="row">
+        <div class="card-wrapper">
+            <div class="card-login fat">
+                <div class="card-body">
+                    <h4 class="card-title">جستجو</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group no-margin">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                جستجو
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

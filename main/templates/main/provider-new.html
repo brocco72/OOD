@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div id="content-wrapper">
+    <div class="row">
+        <div class="container-fluid vertical-center">
+            <div class="card-login" >
+                <div class="card-body">
+                    <h4 class="card-title">ثبت تامین کننده</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group no-margin">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                ثبت
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

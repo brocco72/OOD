@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container vertical-center">
+    <div class="row">
+        <div class="card-wrapper">
+            <div class="card-login fat">
+                <div class="card-body">
+                    <h4 class="card-title">پرداخت</h4>
+                    <div class="row my-3">
+                        <div class=" col-lg-6 form-group no-margin">
+                            <a href="{%url 'pay' tx_id%}" class="btn btn-lg btn-primary text-uppercase"> پرداخت </a>
+                        </div>
+                    </div>
+                    <div class="row my-6">
+                        <div class=" col-lg-6 form-group no-margin">
+                            <a href="{%url 'rent-success'%}" class="btn btn-lg btn-primary text-uppercase"> اتمام </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
