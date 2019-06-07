@@ -11,10 +11,18 @@
                     <form method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <div class="form-group no-margin">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                ثبت
-                            </button>
+                        <div class="row clearfix" style="margin-top:20px">
+                            <div class="pull-left left col-md-4">
+                            </div>
+                            <div class="pull-left left col-md-4">
+                                <div class="form-group no-margin">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        ثبت کالا
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pull-left left col-md-4">
+                            </div>
                         </div>
                     </form>
                 </div>

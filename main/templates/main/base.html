@@ -44,7 +44,7 @@
             <a class="nav-link" href="{% url 'home' %}">خانه</a>
         </li>
         <li class="nav-item sale">
-            <a class="nav-link" href="inventory-reports.html">
+            <a class="nav-link" href="{% url 'new-buy' %}">
                 فاکتور خرید </a>
         </li>
         <li class="nav-item sale">
@@ -92,10 +92,10 @@
                 <i class="fa fa-angle-left"></i>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> موجودی کالا</a>
+                <a class="dropdown-item" href="{% url 'product-list' %}"> <i class="fa fa-tag"></i> موجودی کالا</a>
                 <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> مانده طرف حساب ها</a>
-                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> آمار مشتریان</a>
-                <a class="dropdown-item" href="products.html"> <i class="fa fa-tag"></i> سود و زیان</a>
+                <a class="dropdown-item" href="{% url 'customer-stat' %}"> <i class="fa fa-tag"></i> آمار مشتریان</a>
+                <a class="dropdown-item" href="{% url 'gain-loss' %}"> <i class="fa fa-tag"></i> سود و زیان</a>
             </div>
         </li>
         <li class="nav-item dropleft sale">

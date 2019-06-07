@@ -8,29 +8,29 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="container-fluid vertical-center">
+<div class="container-fluid vertical-center" xmlns="http://www.w3.org/1999/html">
     <div class="card-sale" style="width: 80%" >
         <div class="card-body">
-            <h4 class="card-title"> فاکتور فروش</h4>
+            <h4 class="card-title"> فاکتور خرید</h4>
             <form method="POST">
                 <div class="row clearfix">
                     <div class="col-md-12">
-                        {% csrf_token %}
-                        <div class="container">
-                        <div style="display: table; width: 100%; margin-bottom: 20px; margin-top: 20px">
-                            <div style="display: table-row">
-                                <div class="wrap-input100 validate-input bg1 float-md-right" style="width:45%; display: table-cell">
-                                    <span lang="en" class="label-input100"> مشتری</span>
-                                    {{form.customer}}
-                                </div>
-                                <div class="wrap-input100 validate-input bg1 float-md-left" style="width:45%; display: table-cell">
-                                    <span lang="en" class="label-input100 "> تاریخ</span>
-                                    {{form.date}}
+                            {% csrf_token %}
+                            <div class="container">
+                                <div style="display: table; width: 100%; margin-bottom: 20px; margin-top: 20px">
+                                    <div style="display: table-row">
+                                        <div class="wrap-input100 validate-input bg1 float-md-right" style="width:45%; display: table-cell">
+                                            <span lang="en" class="label-input100"> تامین کننده</span>
+                                            {{form.provider}}
+                                        </div>
+                                        <div class="wrap-input100 validate-input bg1 float-md-left" style="width:45%; display: table-cell">
+                                            <span lang="en" class="label-input100 "> تاریخ</span>
+                                            {{form.date}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="row clearfix">
                     <div class="col-md-12">
@@ -41,7 +41,6 @@
                                 <th class="text-center"> کالا </th>
                                 <th class="text-center"> تعداد </th>
                                 <th class="text-center"> قیمت </th>
-                                <th class="text-center"> تخفیف </th>
                                 <th class="text-center"> مجموع </th>
                             </tr>
                             </thead>
@@ -51,7 +50,6 @@
                                 <td><input type="number" name='product[]'  placeholder='شناسه کالا را وارد کنید' class="form-control product"/></td>
                                 <td><input type="number" name='qty[]' placeholder='تعداد کالا' class="form-control qty" step="0" min="0"/></td>
                                 <td><input type="number" name='price[]' placeholder='0.00' class="form-control price"   readonly step="0.00" min="0"/></td>
-                                <td><input type="number" name='off[]' placeholder='0.00' class="form-control off"   readonly step="0.00" min="0"/></td>
                                 <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
                             </tr>
                             <tr id='addr1'></tr>
@@ -72,7 +70,7 @@
                         <table class="table table-bordered table-hover" id="tab_logic_clear">
                             <tr>
                                 <th class="text-center">تسویه</th>
-                                <td class="text-center"><input type="checkbox" class="form-control" name='clear'></td>
+                                <td class="text-center"><input class="form-control" type="checkbox" name='clear'></td>
                             </tr>
                         </table>
                     </div>
@@ -80,25 +78,9 @@
                         <table class="table table-bordered table-hover" id="tab_logic_total">
                             <tbody>
                             <tr>
-                                <th class="text-center">جمع کل</th>
-                                <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
-                            </tr>
-                            <tr>
-                                <th class="text-center">تخفیف</th>
-                                <td class="text-center"><div class="input-group mb-2 mb-sm-0">
-                                    <input type="number" class="form-control" id="tax" placeholder="0">
-                                    <div class="input-group-addon">%</div>
-                                </div></td>
-                            </tr>
-                            <tr>
-                                <th class="text-center">مقدار تخفیف</th>
-                                <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
-                            </tr>
-                            <tr>
                                 <th class="text-center">قابل پرداخت</th>
                                 <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -175,8 +157,7 @@ function calc()
                 }
             );
             $(this).find('.price').val(pro_price);
-            $(this).find('.off').val(off);
-            $(this).find('.total').val((qty*price*(100-off)/100).toFixed(2));
+            $(this).find('.total').val((qty*price).toFixed(2));
             calc_total();
         }
     });
@@ -192,27 +173,7 @@ function calc_total()
     $('.total').each(function() {
         total += parseInt($(this).val());
     });
-    $('#sub_total').val(total.toFixed(2));
-    tax_sum=total/100*$('#tax').val();
-    $('#tax_amount').val(tax_sum.toFixed(2));
-    $('#total_amount').val((total-tax_sum).toFixed(2));
+    $('#total_amount').val((total).toFixed(2));
 }
 </script>
-
-<!--<div id="content-wrapper">-->
-<!--    <div class="row">-->
-<!--        <div class="container-fluid vertical-center">-->
-<!--            <div class="card-login " >-->
-<!--                <div class="card-body ">-->
-<!--                    <h4 class="card-title">فاکتور فروش</h4>-->
-<!--                    <form class="form-required asteriskField" method="POST">-->
-<!--                        {% csrf_token %}-->
-<!--                        {{ form | crispy}}-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 {% endblock content %}

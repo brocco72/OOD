@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="container-fluid vertical-center">
+        <div class="card-body">
+            <div class="card-header bg-dark text-white">
+                موجودی کالاها
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                        <tr>
+                            <th class="text-center"> # </th>
+                            <th class="text-center"> کالا </th>
+                            <th class="text-center"> تعداد </th>
+                            <th class="text-center"> قیمت </th>
+                            <th class="text-center"> تامین کننده </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td class="text-center">{{product.pk}}</td>
+                            <td class="text-center">{{product.name}}</td>
+                            <td class="text-center">{{product.number}}</td>
+                            <td class="text-center">{{product.price}}</td>
+                            <td class="text-center">{{product.provider.name}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+<!--            <div class="row clearfix" style="margin-top:20px">-->
+<!--                <div class="pull-left left col-md-4">-->
+<!--                </div>-->
+<!--                <div class="pull-left left col-md-4">-->
+<!--                    <div class="form-group no-margin">-->
+<!--                        <button type="submit" class="btn btn-primary btn-block">-->
+<!--                            ثبت فاکتور-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="pull-left left col-md-4">-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+</div>
+
+{% endblock content %}

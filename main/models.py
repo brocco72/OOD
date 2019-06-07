@@ -50,6 +50,7 @@ class Customer(models.Model):
     address = models.TextField()
     email = models.CharField(max_length=200)
     level = models.PositiveIntegerField(default=0)
+    balance = models.PositiveIntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse(self, 'new-customer')
@@ -69,8 +70,8 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     number = models.PositiveIntegerField(default=0)
-    price = models.PositiveIntegerField(default=0)
-    off = models.PositiveIntegerField(default=0)
+    price = models.FloatField(default=0.0)
+    off = models.FloatField(default=0.0)
 
     def get_absolute_url(self):
         return reverse(self, 'new-product')
@@ -79,15 +80,30 @@ class Product(models.Model):
 class SellInvoice(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.now)
+    total = models.FloatField(default=0.0)
+
+
+class BuyInvoice(models.Model):
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=datetime.now)
+    total = models.FloatField(default=0.0)
 
 
 class SellInvoiceItems(models.Model):
-    invoice = models.ForeignKey(SellInvoice, related_name='item_invoice', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='item_product', on_delete=models.CASCADE)
-    number = models.PositiveIntegerField()
-    price = models.PositiveIntegerField()
+    invoice = models.ForeignKey(SellInvoice, related_name='sell_invoice', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='sell_item_product', on_delete=models.CASCADE)
+    number = models.PositiveIntegerField(default=0)
+    off = models.FloatField(default=0.0)
+    price = models.FloatField(default=0.0)
+
+
+class BuyInvoiceItems(models.Model):
+    invoice = models.ForeignKey(BuyInvoice, related_name='buy_invoice', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='buy_item_product', on_delete=models.CASCADE)
+    number = models.PositiveIntegerField(default=0)
+    price = models.FloatField(default=0.0)
 
 
 class CustomerLevelOff(models.Model):
     level = models.PositiveIntegerField(unique=True)
-    off = models.PositiveIntegerField()
+    off = models.FloatField(default=0.0)

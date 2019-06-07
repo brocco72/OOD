@@ -63,8 +63,55 @@ class ProductCreateView(CreateView):
 
 
 def sell_invoice_create(request):
+    if request.method == 'POST':
+        print(request.POST)
+        customer = request.POST.get('customer')
+        date = request.POST.get('date')
+        total = request.POST.get('total_amount')
+        customer = Customer.objects.get(pk=customer)
+        new_sellinv = SellInvoice.objects.create(
+            customer=customer, date=date, total=total
+        )
+        product_list = request.POST.getlist('product[]')
+        qty_list = request.POST.getlist('qty[]')
+        off_list = request.POST.getlist('off[]')
+        price_list = request.POST.getlist('total[]')
+        for i, product in enumerate(product_list):
+            SellInvoiceItems.objects.create(
+                invoice=SellInvoice.objects.get(pk=new_sellinv.id),
+                product=Product.objects.get(pk=product),
+                number=qty_list[i],
+                off=off_list[i],
+                price=price_list[i]
+            )
+        return render(request, 'main/sale-success.html')
     sform = SellInvoiceForm()
     return render(request, 'main/sale-new.html', context={'form': sform})
+
+
+def buy_invoice_create(request):
+    if request.method == 'POST':
+        print(request.POST)
+        provider = request.POST.get('provider')
+        date = request.POST.get('date')
+        total = request.POST.get('total_amount')
+        provider = Provider.objects.get(pk=provider)
+        new_buyinv = BuyInvoice.objects.create(
+            provider=provider, date=date, total=total
+        )
+        product_list = request.POST.getlist('product[]')
+        qty_list = request.POST.getlist('qty[]')
+        price_list = request.POST.getlist('total[]')
+        for i, product in enumerate(product_list):
+            BuyInvoiceItems.objects.create(
+                invoice=BuyInvoice.objects.get(pk=new_buyinv.id),
+                product=Product.objects.get(pk=product),
+                number=qty_list[i],
+                price=price_list[i]
+            )
+        return render(request, 'main/buy-success.html')
+    sform = BuyInvoiceForm()
+    return render(request, 'main/buy-new.html', context={'form': sform})
 
 
 def clear_sell(request):
@@ -95,6 +142,28 @@ def product_price(request):
     response_data['result'] = "Success"
     response_data['message'] = {'price': price, 'off': off}
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def product_list(request):
+    products = Product.objects.all()
+    return render(request, 'main/product-list.html', context={'products': products})
+
+
+def gain_loss(request):
+    return render(request, 'main/gain-loss.html')
+
+
+def customer_stat(request):
+    customers = Customer.objects.all()
+    invoice_dict = {}
+    for customer in customers:
+        invoice_dict[customer.pk] = list(SellInvoice.objects.values_list('pk', flat=True).filter(customer=customer.pk))
+    items_dict = {}
+    for entry in list(SellInvoice.objects.all()):
+        items_dict[entry.pk] = list(SellInvoiceItems.objects.values_list('product', 'number', 'off', 'price').filter(invoice=entry.pk))
+    return render(request, 'main/customer-report.html', context={'customers': customers, 'invoice_dict': invoice_dict,
+                                                                 'items_dict': items_dict})
+
 
 # class HouseListView(ListView):
 #     model = House

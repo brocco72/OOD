@@ -46,12 +46,14 @@ class ProductForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'provider']
+        fields = ['name', 'provider', 'number', 'price']
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "نام"
         self.fields['provider'].label = "تامین کننده"
+        self.fields['number'].label = "تعداد"
+        self.fields['price'].label = "قیمت"
 
 
 class SellInvoiceItemsForm(ModelForm):
@@ -76,6 +78,18 @@ class SellInvoiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SellInvoiceForm, self).__init__(*args, **kwargs)
         self.fields['customer'].label = "مشتری"
+        self.fields['date'].label = "تاریخ"
+
+
+class BuyInvoiceForm(forms.ModelForm):
+
+    class Meta:
+        model = BuyInvoice
+        exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(BuyInvoiceForm, self).__init__(*args, **kwargs)
+        self.fields['provider'].label = "تامین کننده"
         self.fields['date'].label = "تاریخ"
 
 
@@ -115,4 +129,4 @@ class CustomerLevelOffForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomerLevelOffForm, self).__init__(*args, **kwargs)
         self.fields['level'].label = " سطح مشتری"
-        self.fields['off'].label = " درصد تخفیف"
+        self.fields['off'].label = " مبلغ تخفیف"
